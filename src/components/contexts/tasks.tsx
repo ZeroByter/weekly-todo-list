@@ -65,7 +65,7 @@ const TasksDataContextProvider: FC<Props> = ({ children }) => {
   };
 
   const getTasks = (listName: TaskListName) => {
-    return tasks.get(listName) as TaskType[];
+    return structuredClone(tasks.get(listName)) as TaskType[];
   };
 
   const setTasksInList = (listName: TaskListName, newTasksList: TaskType[]) => {
@@ -104,14 +104,14 @@ const TasksDataContextProvider: FC<Props> = ({ children }) => {
     for (const [_listName, tasksList] of tasks.entries()) {
       const listName = _listName as TaskListName;
 
-      if (listName === "main") {
-        continue;
-      }
+      // if (listName === "main") {
+      //   continue;
+      // }
 
       const newTasksList: TaskType[] = [];
 
       for (const task of tasksList) {
-        if (!task.checked) {
+        if (!task.checked && listName !== "main") {
           mainTasks.push(task);
         }
       }
@@ -119,7 +119,10 @@ const TasksDataContextProvider: FC<Props> = ({ children }) => {
       setTasksInList(listName, newTasksList);
     }
 
-    setTasksInList("main", mainTasks);
+    setTasksInList(
+      "main",
+      mainTasks.filter((task) => !task.checked)
+    );
 
     loadCache();
   };
