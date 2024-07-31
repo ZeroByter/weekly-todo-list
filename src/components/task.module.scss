@@ -3,16 +3,42 @@
 
   .paddingContainer {
     border: 1px solid white;
-    padding-bottom: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 6px;
+    padding-bottom: 3px;
+
+    &.isDragging {
+      background: rgba(255, 255, 255, 0.075);
+      border-color: teal;
+    }
 
     .header {
       display: flex;
-      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+
+      .dragHere {
+        background-image: url("../images/dragHandle.png");
+        flex: 1;
+        height: 20px;
+      }
+
+      button {
+        height: fit-content;
+      }
     }
 
     .textarea {
       width: 100%;
       resize: none;
+    }
+
+    .bottomDragHere {
+      height: 7px;
+      width: 100%;
+      background-image: url("../images/dragHandle.png");
     }
   }
 }
