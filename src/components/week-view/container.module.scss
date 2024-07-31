@@ -1,0 +1,28 @@
+.container{
+  background: black;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  width: 50%;
+  height: 100%;
+  transition: transform 250ms;
+  transform: translateX(100%);
+  padding: 10px;
+  z-index: 6000;
+
+  &.open{
+    transform: unset;
+  }
+
+  .buttons{
+    display: flex;
+
+    .spacer{
+      flex: 1;
+    }
+  }
+
+  .days{
+    padding: 10px 0px;
+  }
+}

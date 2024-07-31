@@ -4,15 +4,18 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import MainContextProvider from './components/contexts/tasks';
+import AppStateContextProvider from './components/contexts/app-state';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <MainContextProvider>
-      <App />
-    </MainContextProvider>
+    <AppStateContextProvider>
+      <MainContextProvider>
+        <App />
+      </MainContextProvider>
+    </AppStateContextProvider>
   </React.StrictMode>
 );
 

@@ -1,4 +1,14 @@
-.container{
-    border: 1px solid red;
-    padding: 10px;
+.container {
+  .header {
+    background: #1b1e24;
+    width: fit-content;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    padding: 4px 10px;
+  }
+
+  .list {
+    padding: 6px 10px;
+    background: #1b1e24;
+  }
 }

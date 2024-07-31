@@ -6,6 +6,8 @@ import TaskType from "./types/task";
 import { TaskListName, useTasksData } from "./components/contexts/tasks";
 import Header from "./components/header";
 import { moveTask, reorderTask } from "./dnd-utils";
+import WeekDaysContainer from "./components/week-view/container";
+import css from "./app.module.scss"
 
 function App() {
   const { saveCache, loadCache, getTasks, setTasksInList } = useTasksData()
@@ -35,16 +37,36 @@ function App() {
   };
 
   const renderMainTasks = getTasks("main").map((task, index) => {
-    return <Task key={task.id} task={task} index={index} />
+    return <Task key={task.id} listName="main" task={task} index={index} />
   })
 
+  const renderDays = []
+
+  for (let i = 0; i < 7; i++) {
+    const stringId = `${i}` as TaskListName
+
+    const renderMainTasks = getTasks(stringId).map((task, index) => {
+      return <Task key={task.id} listName={stringId} task={task} index={index} />
+    })
+
+    renderDays.push(
+      <TasksDroppable key={i} droppableId={stringId}>
+        {renderMainTasks}
+      </TasksDroppable>
+    )
+  }
+
   return (
-    <div>
+    <div className={css.container}>
       <Header />
       <DragDropContext onDragEnd={onDragEnd}>
-        <TasksDroppable droppableId="main">
-          {renderMainTasks}
-        </TasksDroppable>
+        <div className={css.list}>
+          <TasksDroppable droppableId="main">
+            {renderMainTasks}
+          </TasksDroppable>
+          {renderDays}
+        </div>
+        {/* <WeekDaysContainer /> */}
       </DragDropContext>
     </div>
   );

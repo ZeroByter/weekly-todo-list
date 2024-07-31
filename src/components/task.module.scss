@@ -1,8 +1,18 @@
 .container {
-  border: 1px solid white;
+  padding: 4px 0px;
 
-  .header {
-    display: flex;
-    justify-content: space-between;
+  .paddingContainer {
+    border: 1px solid white;
+    padding-bottom: 4px;
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .textarea {
+      width: 100%;
+      resize: none;
+    }
   }
 }
