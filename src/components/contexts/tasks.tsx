@@ -18,6 +18,7 @@ type ContextType = {
   getTasks: (listName: TaskListName) => TaskType[];
   setTasksInList: (listName: TaskListName, newTasksList: TaskType[]) => void;
   addTask: (listName: TaskListName, newTask: TaskType) => void;
+  deleteTask: (listName: TaskListName, index: number) => void;
   setTask: (listName: TaskListName, index: number, newTask: TaskType) => void;
 };
 
@@ -77,6 +78,14 @@ const TasksDataContextProvider: FC<Props> = ({ children }) => {
     setTasks(newTasks)
   }
 
+  const deleteTask = (listName: TaskListName, index: number) => {
+    const newTasks = structuredClone(tasks)
+
+    newTasks.get(listName)!.splice(index, 1)
+
+    setTasks(newTasks)
+  }
+
   const setTask = (listName: string, index: number, task: TaskType) => {
     const newTasks = structuredClone(tasks)
 
@@ -96,7 +105,7 @@ const TasksDataContextProvider: FC<Props> = ({ children }) => {
   }, [tasks])
 
   return (
-    <TasksDataContext.Provider value={{ saveCache, loadCache, getTasks, addTask, setTasksInList, setTask }}>
+    <TasksDataContext.Provider value={{ saveCache, loadCache, getTasks, addTask, deleteTask, setTasksInList, setTask }}>
       {children}
     </TasksDataContext.Provider>
   );

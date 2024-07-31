@@ -16,7 +16,7 @@ const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
 })
 
 const Task: FC<Props> = ({ listName, task, index }) => {
-  const { setTask } = useTasksData();
+  const { setTask, deleteTask } = useTasksData();
 
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     task.checked = e.target.checked
@@ -30,13 +30,17 @@ const Task: FC<Props> = ({ listName, task, index }) => {
     setTask(listName, index, task)
   }
 
+  const handleDeleteClick = () => {
+    deleteTask(listName, index)
+  }
+
   return (
     <Draggable key={task.id} draggableId={task.id} index={index}>{(provided, snapshot) => (
       <div className={css.container} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}>
         <div className={css.paddingContainer}>
           <div className={css.header}>
             <input type="checkbox" checked={task.checked} onChange={handleCheckboxChange} />
-            <button>delete</button>
+            <button onClick={handleDeleteClick}>delete</button>
           </div>
           <div>
             <TextareaAutosize
