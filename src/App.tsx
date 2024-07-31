@@ -1,6 +1,16 @@
 import React from "react";
-import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import { DragDropContext, DropResult } from "@hello-pangea/dnd";
 import Task from "./components/task";
+import TasksDroppable from "./components/tasks-droppable";
+import TaskType from "./types/task";
+
+const exampleTask: TaskType = {
+  id: "memes",
+  checked: false,
+  description: "lol memes",
+  timeCreated: 0,
+  timeModified: 0,
+}
 
 function App() {
   const onDragEnd = (result: DropResult) => {
@@ -10,12 +20,9 @@ function App() {
   return (
     <div>
       <DragDropContext onDragEnd={onDragEnd}>
-        <div>
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-        </div>
+        <TasksDroppable droppableId="main">
+          <Task task={exampleTask} index={0} />
+        </TasksDroppable>
       </DragDropContext>
     </div>
   );
